@@ -28,6 +28,12 @@ echo "$CONFIG" >>"$IFACE.conf"
 iptables -I OUTPUT -o eth0 -d "$ENDPOINT_IP" -j ACCEPT
 iptables -A OUTPUT -o eth0 -j DROP
 
-$CLIENT_PROC --disable-drop-privileges -f "$IFACE" &
-./wg-quick.sh up "./$IFACE.conf" &
-wait
+if ${USERSPACE:=false}; then
+  unset WG_QUICK_USERSPACE_IMPLEMENTATION
+  wg-quick up "./$IFACE.conf"
+  sleep infinity
+else
+  $CLIENT_PROC --disable-drop-privileges -f "$IFACE" &
+  ./wg-quick.sh up "./$IFACE.conf" &
+  wait
+fi

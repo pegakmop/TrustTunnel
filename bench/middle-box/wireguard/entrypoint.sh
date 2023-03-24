@@ -27,8 +27,11 @@ on_exit() {
   set +e
 
   wg show
-  wg-quick down "./$IFACE.conf"
 }
+
+if ${USERSPACE:=false}; then
+  unset WG_QUICK_USERSPACE_IMPLEMENTATION
+fi
 
 wg-quick up "./$IFACE.conf"
 
