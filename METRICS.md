@@ -30,7 +30,8 @@ Default metrics endpoint: `http://0.0.0.0:1987/metrics`
 Returns all metrics in Prometheus text format.
 
 **Example response:**
-```
+
+```console
 # HELP client_sessions Number of active client sessions
 # TYPE client_sessions gauge
 client_sessions{protocol_type="http1"} 5
@@ -61,14 +62,16 @@ Health check endpoint that returns HTTP 200 OK if the endpoint is running.
 
 ### Client Sessions
 
-**Name:** `client_sessions`  
-**Type:** Gauge  
+**Name:** `client_sessions`
+**Type:** Gauge
 **Labels:**
+
 - `protocol_type`: Protocol type (`http1`, `http2`, `http3`)
 
 **Description:** Current number of active client sessions grouped by protocol type.
 
 **Use cases:**
+
 - Monitor active connections
 - Detect protocol distribution
 - Identify connection leaks
@@ -76,14 +79,16 @@ Health check endpoint that returns HTTP 200 OK if the endpoint is running.
 
 ### Inbound Traffic
 
-**Name:** `inbound_traffic_bytes`  
-**Type:** Counter  
+**Name:** `inbound_traffic_bytes`
+**Type:** Counter
 **Labels:**
+
 - `protocol_type`: Protocol type (`http1`, `http2`, `http3`)
 
 **Description:** Total number of bytes uploaded by clients (client → endpoint → destination).
 
 **Use cases:**
+
 - Monitor upload bandwidth usage
 - Track traffic patterns by protocol
 - Billing and quota management
@@ -91,14 +96,16 @@ Health check endpoint that returns HTTP 200 OK if the endpoint is running.
 
 ### Outbound Traffic
 
-**Name:** `outbound_traffic_bytes`  
-**Type:** Counter  
+**Name:** `outbound_traffic_bytes`
+**Type:** Counter
 **Labels:**
+
 - `protocol_type`: Protocol type (`http1`, `http2`, `http3`)
 
 **Description:** Total number of bytes downloaded by clients (destination → endpoint → client).
 
 **Use cases:**
+
 - Monitor download bandwidth usage
 - Track traffic patterns by protocol
 - Billing and quota management
@@ -106,13 +113,14 @@ Health check endpoint that returns HTTP 200 OK if the endpoint is running.
 
 ### Outbound TCP Sockets
 
-**Name:** `outbound_tcp_sockets`  
-**Type:** Gauge  
+**Name:** `outbound_tcp_sockets`
+**Type:** Gauge
 **Labels:** None
 
 **Description:** Current number of active outbound TCP connections from the endpoint to destination servers.
 
 **Use cases:**
+
 - Monitor connection pool size
 - Detect connection leaks
 - Identify resource exhaustion
@@ -120,6 +128,7 @@ Health check endpoint that returns HTTP 200 OK if the endpoint is running.
 - Debug proxy performance issues
 
 **Notes:**
+
 - Incremented when a new TCP connection is established
 - Decremented when the connection is closed
 - Includes connections through direct forwarder and SOCKS5 forwarder
@@ -127,13 +136,14 @@ Health check endpoint that returns HTTP 200 OK if the endpoint is running.
 
 ### Outbound UDP Sockets
 
-**Name:** `outbound_udp_sockets`  
-**Type:** Gauge  
+**Name:** `outbound_udp_sockets`
+**Type:** Gauge
 **Labels:** None
 
 **Description:** Current number of active outbound UDP sockets from the endpoint to destination servers.
 
 **Use cases:**
+
 - Monitor UDP multiplexer state
 - Detect socket leaks
 - Track UDP traffic load
@@ -141,6 +151,7 @@ Health check endpoint that returns HTTP 200 OK if the endpoint is running.
 - Debug UDP forwarding issues
 
 **Notes:**
+
 - Incremented when a new UDP association is created
 - Decremented when the association is closed
 - Includes sockets through direct forwarder and SOCKS5 UDP associations
